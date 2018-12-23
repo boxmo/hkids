@@ -18,6 +18,7 @@ $(document).ready(function(){
     var doodle = $("#doodle");
     if (color == 'none') {
       doodle.css('background-image', "");
+      return
     }
     var doodle_path = '/img/rabisco/doodle/' + color + '.png';
     console.log(doodle_path);
@@ -90,7 +91,7 @@ $(document).ready(function(){
     lazyLoad: 'ondemand',
     slidesToShow: 3,
     slidesToScroll: 3,
-    speed: 800,
+    speed: 800
   });
 
   slider.on('wheel', (function(e) {

@@ -18,6 +18,7 @@ $(document).ready(function(){
     var doodle = $("#doodle");
     if (color === false) {
       doodle.css('background-image', "");
+      return
     }
     var doodle_path = '/img/rabisco/doodle/' + color + '.png';
     console.log(doodle_path);

@@ -1,6 +1,5 @@
 
 $(document).ready(function(){
-  var anchor = window.location.hash;
 
 
   var slider = $(".carousel");
@@ -35,16 +34,11 @@ $(document).ready(function(){
     }
   }));
 
-  if (anchor.length) {
-    var slide = map[anchor];
-    $('.carousel').slick('slickGoTo', slide);
-    change_cicle(slide);
-  }
 
   $('.carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide){
     var slide = nextSlide + 1;
     if(slide % 2 === 0) {
-      set_doodle('rosa_bebe');
+      set_doodle('marrom');
     } else {
       set_doodle(false);
     }
