@@ -14,6 +14,21 @@ $(document).ready(function(){
     "#c2a3": 30
   }
 
+  var set_bgs = function() {
+    $('.slick-active .placeholder').each(function(){
+      var regex = RegExp('placeholder');
+      var currentBg = $(this).css('background-image');
+      if (regex.test(currentBg)) {
+        console.log("changed");
+        var bg = "url(" + $(this).data('bg') + ")"
+        $(this).css('background-image', bg);
+       } else {
+         console.log("return");
+         return
+       }
+    });
+  }
+
   var set_doodle = function(color) {
     var doodle = $("#doodle");
     if (color == 'none') {
@@ -21,15 +36,12 @@ $(document).ready(function(){
       return
     }
     var doodle_path = '/img/rabisco/doodle/' + color + '.png';
-    console.log(doodle_path);
     doodle.css('background-image', "url(" + doodle_path+ ")");
   }
 
   var change_cicle = function(nextSlide) {
     var slide = nextSlide + 1;
     var title_div = $("#page-title-img");
-    console.log(slide);
-    console.log(slide % 2 === 0);
     if (slide > 0 && slide < 7) {
       title_div.find('img').addClass('d-none');
       title_div.find(".c1a1").removeClass('d-none');
@@ -87,11 +99,17 @@ $(document).ready(function(){
     }
   }
 
+  slider.on('init', function(slick, e){
+    set_bgs()
+  });
+
   slider.slick({
     lazyLoad: 'ondemand',
     slidesToShow: 3,
     slidesToScroll: 3,
     speed: 800,
+    draggable: false,
+    rows: 0,
     responsive: [
       {
         breakpoint: 1024,
@@ -131,11 +149,18 @@ $(document).ready(function(){
     var slide = map[anchor];
     $('.carousel').slick('slickGoTo', slide);
     change_cicle(slide);
+  } else {
+    change_cicle(0);
   }
 
-  $('.carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+  slider.on('beforeChange', function(event, slick, currentSlide, nextSlide){
     change_cicle(nextSlide);
   });
+
+  slider.on('afterChange', function(){
+    set_bgs()
+  })
+
 
 
 });

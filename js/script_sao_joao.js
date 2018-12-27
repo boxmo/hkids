@@ -4,6 +4,20 @@ $(document).ready(function(){
 
   var slider = $(".carousel");
 
+  var set_bgs = function() {
+    $('.slick-active .placeholder').each(function(){
+      var regex = RegExp('placeholder');
+      var currentBg = $(this).css('background-image');
+      if (regex.test(currentBg)) {
+        console.log("changed");
+        var bg = "url(" + $(this).data('bg') + ")"
+        $(this).css('background-image', bg);
+       } else {
+         console.log("return");
+         return
+       }
+    });
+  }
 
   var set_doodle = function(color) {
     var doodle = $("#doodle");
@@ -16,12 +30,17 @@ $(document).ready(function(){
     doodle.css('background-image', "url(" + doodle_path+ ")");
   }
 
+  slider.on('init', function(slick, e){
+    set_bgs()
+  });
 
   slider.slick({
     lazyLoad: 'ondemand',
     slidesToShow: 3,
     slidesToScroll: 3,
     speed: 800,
+    draggable: false,
+    rows: 0,
     responsive: [
       {
         breakpoint: 1024,
@@ -65,9 +84,12 @@ $(document).ready(function(){
     } else {
       set_doodle(false);
     }
-
-
   });
+
+  slider.on('afterChange', function(){
+    set_bgs()
+  });
+
 
 
 });
