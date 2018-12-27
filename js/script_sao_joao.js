@@ -9,15 +9,22 @@ $(document).ready(function(){
       var regex = RegExp('placeholder');
       var currentBg = $(this).css('background-image');
       if (regex.test(currentBg)) {
-        console.log("changed");
-        var bg = "url(" + $(this).data('bg') + ")"
-        $(this).css('background-image', bg);
+        var imgUrl = $(this).data('bg');
+        var bg = "url(" + imgUrl + ")"
+        var _this = $(this);
+
+        var downloadImg = new Image();
+        downloadImg.onload = function() {
+          _this.css('background-image', bg);
+        }
+        downloadImg.src = imgUrl;
+
        } else {
-         console.log("return");
          return
        }
     });
   }
+
 
   var set_doodle = function(color) {
     var doodle = $("#doodle");

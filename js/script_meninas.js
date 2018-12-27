@@ -25,7 +25,6 @@ $(document).ready(function(){
 
         var downloadImg = new Image();
         downloadImg.onload = function() {
-          console.log('laoded');
           _this.css('background-image', bg);
         }
         downloadImg.src = imgUrl;
