@@ -19,11 +19,11 @@ $(document).ready(function(){
       var regex = RegExp('placeholder');
       var currentBg = $(this).css('background-image');
       if (regex.test(currentBg)) {
-        console.log("changed");
+        var pic1 = document.createElement('src');
+        pic1.src = $(this).data('bg'); 
         var bg = "url(" + $(this).data('bg') + ")"
         $(this).css('background-image', bg);
        } else {
-         console.log("return");
          return
        }
     });
