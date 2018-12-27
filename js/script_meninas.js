@@ -19,10 +19,17 @@ $(document).ready(function(){
       var regex = RegExp('placeholder');
       var currentBg = $(this).css('background-image');
       if (regex.test(currentBg)) {
-        var pic1 = document.createElement('src');
-        pic1.src = $(this).data('bg'); 
-        var bg = "url(" + $(this).data('bg') + ")"
-        $(this).css('background-image', bg);
+        var imgUrl = $(this).data('bg');
+        var bg = "url(" + imgUrl + ")"
+        var _this = $(this);
+
+        var downloadImg = new Image();
+        downloadImg.onload = function() {
+          console.log('laoded');
+          _this.css('background-image', bg);
+        }
+        downloadImg.src = imgUrl;
+
        } else {
          return
        }
