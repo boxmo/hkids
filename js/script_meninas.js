@@ -14,8 +14,9 @@ $(document).ready(function(){
     "#c2a3": 30
   }
 
-  var set_bgs = function() {
-    $('.slick-active .placeholder').each(function(){
+  var set_bg_on_demand = function(el) {
+    console.log(el);
+    $(el).each(function(){
       var regex = RegExp('placeholder');
       var currentBg = $(this).css('background-image');
       if (regex.test(currentBg)) {
@@ -32,7 +33,22 @@ $(document).ready(function(){
        } else {
          return
        }
-    });
+     });
+  }
+
+  var set_bgs = function(currentSlide=0) {
+
+    var el = $('.slick-active .placeholder');
+    set_bg_on_demand(el);
+    var nextToLoad = []
+    for (i = currentSlide + 3; i <= currentSlide + 5; i++) {
+      var lazyEl = $('[data-slick-index=' + i +']').find('.placeholder');
+      nextToLoad.push(lazyEl);
+      if(nextToLoad.length >= 3) {
+        set_bg_on_demand(nextToLoad)
+      }
+    }
+
   }
 
   var set_doodle = function(color) {
@@ -163,8 +179,8 @@ $(document).ready(function(){
     change_cicle(nextSlide);
   });
 
-  slider.on('afterChange', function(){
-    set_bgs()
+  slider.on('afterChange', function(event, slick, currentSlide){
+    set_bgs(currentSlide)
   })
 
 
